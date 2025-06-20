@@ -20,7 +20,7 @@
     /* Header */
     header {
       width: 100%; background: var(--header-bg);
-      padding: 1.44rem 2.88rem; /* 20% larger */
+      padding: 1.44rem 2.88rem;
       display: flex; justify-content: space-between; align-items: center;
     }
     .logo { font-size: 2.592rem; font-weight: bold; }
@@ -31,14 +31,14 @@
       padding: 0.72rem 1.44rem; border-radius: 4px;
     }
     nav a:hover { background: rgba(255,255,255,0.1); }
-    /* First Panel with clipped bottom image */
+    /* Hero Section */
     #first_panel { position: relative; overflow: hidden; }
     #first_panel img {
       width: 100%; display: block;
       object-fit: cover; height: calc(100vh * 1.15);
       object-position: top;
     }
-    /* Simple bottom overlay */
+    /* Bottom overlay */
     #first_panel::after {
       content: '';
       position: absolute; bottom: 0; left: 0;
@@ -46,30 +46,33 @@
       background: var(--header-bg);
       pointer-events: none;
     }
-    /* Download Button - enlarged */
-    #downloadBtn {
-      background: var(--button-bg);
-      border: none;
-      padding: 0.75rem 1.5rem;
-      font-size: 1rem;
-      cursor: pointer;
-      border-radius: 5px;
-    }
-    /* Restore content overlay (no gray background) */
-    /* Restore content overlay (no gray background) */
+    /* Button container with rounded background */
     .panel-content {
       position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
+      top: 50%; left: 50%; transform: translate(-50%, -50%);
       text-align: center;
-      /* background removed */
-      padding: 0;
-      border-radius: 0;
+    }
+    .btn-container {
+      background: var(--header-bg);
+      padding: 2rem;
+      border-radius: 1.5rem;
+      display: inline-block;
+    }
+    #downloadBtn {
+      font-size: 4rem;
+      padding: 2rem 3rem;
+      background: var(--button-bg);
+      color: #111;
+      border: none;
+      border-radius: 1rem;
+      cursor: pointer;
+      display: block;
     }
     /* Features section */
     #features {
       display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 2rem; max-width: 1200px; margin: auto;
+      gap: 2rem; max-width: 1200px; margin: 4rem auto;
+      padding: 0 2rem;
     }
     .feature-card {
       background: rgba(20,20,20,0.8); padding: 2rem;
@@ -115,38 +118,36 @@
   <section id="first_panel">
     <img src="https://wallpapercave.com/uwp/uwp4758681.jpeg" alt="PvP Background">
     <div class="panel-content">
-      <h1>Latium Client</h1>
-      <p>Your Ultimate Minecraft PvP Experience</p>
-      <button id="downloadBtn">Download Now</button>
+      <div class="btn-container">
+        <button id="downloadBtn">Download Now</button>
+      </div>
     </div>
   </section>
 
   <section id="features">
-    <div class="features-grid">
-      <div class="feature-card">
-        <h3>All in one</h3>
-        <p>Everything you need in a single client package.</p>
-      </div>
-      <div class="feature-card">
-        <h3>Performance Boost</h3>
-        <p>Optimize your FPS for smoother gameplay.</p>
-      </div>
-      <div class="feature-card">
-        <h3>Free to Use</h3>
-        <p>No hidden costs or subscriptions required.</p>
-      </div>
-      <div class="feature-card">
-        <h3>Client-Side Mods</h3>
-        <p>Customize your experience with easy mod support.</p>
-      </div>
-      <div class="feature-card">
-        <h3>Secure</h3>
-        <p>Built with security in mind to protect your data.</p>
-      </div>
-      <div class="feature-card">
-        <h3>Fully Supported</h3>
-        <p>Regular updates and dedicated support.</p>
-      </div>
+    <div class="feature-card">
+      <h3>All in one</h3>
+      <p>Everything you need in a single client package.</p>
+    </div>
+    <div class="feature-card">
+      <h3>Performance Boost</h3>
+      <p>Optimize your FPS for smoother gameplay.</p>
+    </div>
+    <div class="feature-card">
+      <h3>Free to Use</h3>
+      <p>No hidden costs or subscriptions required.</p>
+    </div>
+    <div class="feature-card">
+      <h3>Client-Side Mods</h3>
+      <p>Customize your experience with easy mod support.</p>
+    </div>
+    <div class="feature-card">
+      <h3>Secure</h3>
+      <p>Built with security in mind to protect your data.</p>
+    </div>
+    <div class="feature-card">
+      <h3>Fully Supported</h3>
+      <p>Regular updates and dedicated support.</p>
     </div>
   </section>
 
