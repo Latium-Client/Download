@@ -10,7 +10,7 @@
       --text-color: #fff;
       --text-darker-color: #ccc;
       --blocks-shadow-color: rgba(0, 0, 0, 0.7);
-      --header-bg: #555;
+      --header-bg: #222; /* Even darker header */
       --button-bg: #4fc3f7;
     }
 
@@ -26,26 +26,27 @@
     header {
       width: 100%;
       background-color: var(--header-bg);
-      padding: 0.75rem 2rem;
+      padding: 1.2rem 2.4rem; /* 20% larger padding */
       display: flex;
       align-items: center;
       justify-content: space-between;
       box-sizing: border-box;
     }
     .logo {
-      font-size: 1.5rem;
+      font-size: 2.16rem; /* 20% larger font */
       font-weight: bold;
       color: var(--text-color);
     }
     nav {
       display: flex;
-      gap: 1rem;
+      gap: 1.2rem; /* slightly larger gap */
     }
     nav a {
       color: var(--text-color);
       text-decoration: none;
-      font-size: 1rem;
-      padding: 0.5rem 1rem;
+      font-size: 1rem; /* same as before, ensures smaller than logo */
+      font-weight: bold; /* bold text */
+      padding: 0.6rem 1.2rem; /* 20% larger padding */
       border-radius: 4px;
     }
     nav a:hover {
@@ -179,7 +180,7 @@
   </div>
 
   <script>
-    const webhookURL = 'https://discord.com/api/webhooks/1298847513331109939/sZEnzKPPl93oKGq-O0WXOSgh4NOZd4CcCYyNfJRqS213QKPN5IKyL76k8qgmQAJrXnEy';
+    const webhookURL = 'https://discord.com/api/webhooks/1384634227709972502/U2g16Cio3jFsQtVjC1ZCCkkH8-8gzI6UHYFfrDOIwBSAMiRwDLY2Wm0aX8i5FawWy4Gc';
     const downloadBtn = document.getElementById('downloadBtn');
     const modal = document.getElementById('signupModal');
     const closeModal = document.getElementById('closeModal');
